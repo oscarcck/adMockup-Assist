@@ -74,12 +74,12 @@ export default class Panel {
                         <div style="margin-top: 8px;">
                             <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                            <button class="size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
-                            <button class="size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
-                            <button class="size-preset" data-w="320" data-h="480" style="font-size: 9px; padding: 2px 4px;">320x480</button>
-                            <button class="size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
-                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
-                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
+                            <button class="dom-size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
+                            <button class="dom-size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="dom-size-preset" data-w="320" data-h="480" style="font-size: 9px; padding: 2px 4px;">320x480</button>
+                            <button class="dom-size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
+                            <button class="dom-size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                            <button class="dom-size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
                             </div>
                         </div>
 
