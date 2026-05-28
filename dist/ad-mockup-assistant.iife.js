@@ -22,7 +22,7 @@
                 <div id="action-section">
                     <label style="font-size: 12px; font-weight: bold;">2. Placement:</label>
                     <button id="float-btn" class="primary" style="width: 100%; margin-top: 5px;">Create Floating Mockup</button>
-                    
+
                     <div style="margin-top: 10px;">
                         <button id="select-btn" style="width: 100%;">Select DOM Element</button>
                         <div id="selection-info" style="font-size: 11px; color: #666; margin-top: 3px; text-align: center;">No element selected</div>
@@ -51,10 +51,12 @@
                         <div style="margin-top: 8px;">
                             <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                                <button class="dom-size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
-                                <button class="dom-size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
-                                <button class="dom-size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
-                                <button class="dom-size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
+                            <button class="size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="320" data-h="480" style="font-size: 9px; padding: 2px 4px;">320x480</button>
+                            <button class="size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
+                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
                             </div>
                         </div>
 
@@ -86,15 +88,16 @@
                             <input type="number" id="input-h" style="width: 100%; font-size: 11px; padding: 2px;">
                         </div>
                     </div>
-                    
+
                     <div style="margin-top: 8px;">
                         <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
                         <div style="display: flex; flex-wrap: wrap; gap: 3px;">
                             <button class="size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
-                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
-                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
                             <button class="size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="320" data-h="480" style="font-size: 9px; padding: 2px 4px;">320x480</button>
                             <button class="size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
+                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
                         </div>
                     </div>
 

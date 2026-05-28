@@ -1,27 +1,27 @@
-import styles from './styles.css?inline';
+import styles from "./styles.css?inline";
 
 export default class Panel {
-    constructor(app) {
-        this.app = app;
-        this.container = null;
-        this.shadowRoot = null;
-        this.isVisible = true;
-        this.aspectLocked = true;
-        this.domAspectLocked = true;
-    }
+  constructor(app) {
+    this.app = app;
+    this.container = null;
+    this.shadowRoot = null;
+    this.isVisible = true;
+    this.aspectLocked = true;
+    this.domAspectLocked = true;
+  }
 
-    render() {
-        this.container = document.createElement('div');
-        this.container.id = 'ad-mockup-assistant-root';
-        this.shadowRoot = this.container.attachShadow({ mode: 'open' });
+  render() {
+    this.container = document.createElement("div");
+    this.container.id = "ad-mockup-assistant-root";
+    this.shadowRoot = this.container.attachShadow({ mode: "open" });
 
-        const styleTag = document.createElement('style');
-        styleTag.textContent = styles;
-        this.shadowRoot.appendChild(styleTag);
+    const styleTag = document.createElement("style");
+    styleTag.textContent = styles;
+    this.shadowRoot.appendChild(styleTag);
 
-        const panel = document.createElement('div');
-        panel.className = 'mockup-panel';
-        panel.innerHTML = `
+    const panel = document.createElement("div");
+    panel.className = "mockup-panel";
+    panel.innerHTML = `
             <div class="panel-header">
                 <div style="display: flex; align-items: center;">
                     <button id="collapse-btn">−</button>
@@ -45,7 +45,7 @@ export default class Panel {
                 <div id="action-section">
                     <label style="font-size: 12px; font-weight: bold;">2. Placement:</label>
                     <button id="float-btn" class="primary" style="width: 100%; margin-top: 5px;">Create Floating Mockup</button>
-                    
+
                     <div style="margin-top: 10px;">
                         <button id="select-btn" style="width: 100%;">Select DOM Element</button>
                         <div id="selection-info" style="font-size: 11px; color: #666; margin-top: 3px; text-align: center;">No element selected</div>
@@ -74,10 +74,12 @@ export default class Panel {
                         <div style="margin-top: 8px;">
                             <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
                             <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                                <button class="dom-size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
-                                <button class="dom-size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
-                                <button class="dom-size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
-                                <button class="dom-size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
+                            <button class="size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="320" data-h="480" style="font-size: 9px; padding: 2px 4px;">320x480</button>
+                            <button class="size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
+                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
                             </div>
                         </div>
 
@@ -109,15 +111,16 @@ export default class Panel {
                             <input type="number" id="input-h" style="width: 100%; font-size: 11px; padding: 2px;">
                         </div>
                     </div>
-                    
+
                     <div style="margin-top: 8px;">
                         <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
                         <div style="display: flex; flex-wrap: wrap; gap: 3px;">
                             <button class="size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
-                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
-                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
                             <button class="size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="320" data-h="480" style="font-size: 9px; padding: 2px 4px;">320x480</button>
                             <button class="size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
+                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
                         </div>
                     </div>
 
@@ -134,233 +137,257 @@ export default class Panel {
             </div>
         `;
 
-        this.shadowRoot.appendChild(panel);
+    this.shadowRoot.appendChild(panel);
 
-        const trigger = document.createElement('div');
-        trigger.className = 'visibility-toggle-trigger';
-        trigger.title = 'Click to show/hide tool';
-        trigger.onclick = () => this.toggleVisibility();
-        this.shadowRoot.appendChild(trigger);
+    const trigger = document.createElement("div");
+    trigger.className = "visibility-toggle-trigger";
+    trigger.title = "Click to show/hide tool";
+    trigger.onclick = () => this.toggleVisibility();
+    this.shadowRoot.appendChild(trigger);
 
-        document.documentElement.appendChild(this.container);
+    document.documentElement.appendChild(this.container);
 
-        this.setupEventListeners();
-        this.makeDraggable(panel);
-    }
+    this.setupEventListeners();
+    this.makeDraggable(panel);
+  }
 
-    $(id) {
-        return this.shadowRoot.getElementById(id);
-    }
+  $(id) {
+    return this.shadowRoot.getElementById(id);
+  }
 
-    updateMockupStats(stats) {
-        const x = this.$('input-x'), y = this.$('input-y'), w = this.$('input-w'), h = this.$('input-h');
-        if (x) x.value = stats.x;
-        if (y) y.value = stats.y;
-        if (w) w.value = stats.w;
-        if (h) h.value = stats.h;
-    }
+  updateMockupStats(stats) {
+    const x = this.$("input-x"),
+      y = this.$("input-y"),
+      w = this.$("input-w"),
+      h = this.$("input-h");
+    if (x) x.value = stats.x;
+    if (y) y.value = stats.y;
+    if (w) w.value = stats.w;
+    if (h) h.value = stats.h;
+  }
 
-    setupEventListeners() {
-        this.$('close-btn').onclick = () => this.toggleVisibility();
-        
-        const collapseBtn = this.$('collapse-btn');
-        const panel = this.shadowRoot.querySelector('.mockup-panel');
-        collapseBtn.onclick = () => {
-            const isCollapsed = panel.classList.toggle('collapsed');
-            collapseBtn.textContent = isCollapsed ? '+' : '−';
-        };
+  setupEventListeners() {
+    this.$("close-btn").onclick = () => this.toggleVisibility();
 
-        this.$('select-btn').onclick = () => {
-            const isSelectionMode = !this.app.state.isSelectionMode;
-            this.app.state.setState({ isSelectionMode });
-            this.updateSelectionButton(isSelectionMode);
-        };
+    const collapseBtn = this.$("collapse-btn");
+    const panel = this.shadowRoot.querySelector(".mockup-panel");
+    collapseBtn.onclick = () => {
+      const isCollapsed = panel.classList.toggle("collapsed");
+      collapseBtn.textContent = isCollapsed ? "+" : "−";
+    };
 
-        this.$('reset-btn').onclick = () => this.app.overlayEngine.reset();
-        
-        this.$('apply-btn').onclick = () => {
-            const url = this.$('url-input').value;
-            const fit = this.$('fit-select').value;
-            const w = this.$('dom-input-w').value;
-            const h = this.$('dom-input-h').value;
+    this.$("select-btn").onclick = () => {
+      const isSelectionMode = !this.app.state.isSelectionMode;
+      this.app.state.setState({ isSelectionMode });
+      this.updateSelectionButton(isSelectionMode);
+    };
 
-            if (url && this.app.state.selectedElement) {
-                const el = this.app.state.selectedElement;
-                if (w) el.style.width = `${w}px`;
-                if (h) el.style.height = `${h}px`;
-                if (w || h) el.style.margin = '0 auto';
-                this.app.overlayEngine.applyCreative(el, url, { fit });
-            } else if (url) {
-                this.app.overlayEngine.applyFloatingMockup(url);
+    this.$("reset-btn").onclick = () => this.app.overlayEngine.reset();
+
+    this.$("apply-btn").onclick = () => {
+      const url = this.$("url-input").value;
+      const fit = this.$("fit-select").value;
+      const w = this.$("dom-input-w").value;
+      const h = this.$("dom-input-h").value;
+
+      if (url && this.app.state.selectedElement) {
+        const el = this.app.state.selectedElement;
+        if (w) el.style.width = `${w}px`;
+        if (h) el.style.height = `${h}px`;
+        if (w || h) el.style.margin = "0 auto";
+        this.app.overlayEngine.applyCreative(el, url, { fit });
+      } else if (url) {
+        this.app.overlayEngine.applyFloatingMockup(url);
+      }
+    };
+
+    this.shadowRoot.querySelectorAll(".dom-size-preset").forEach((btn) => {
+      btn.onclick = () => {
+        const { w, h } = btn.dataset;
+        this.$("dom-input-w").value = w;
+        this.$("dom-input-h").value = h;
+        if (this.app.state.selectedElement) {
+          const el = this.app.state.selectedElement;
+          el.style.width = `${w}px`;
+          el.style.height = `${h}px`;
+          el.style.margin = "0 auto";
+        }
+      };
+    });
+
+    const syncDomSize = (e) => {
+      const wInput = this.$("dom-input-w");
+      const hInput = this.$("dom-input-h");
+      let w = wInput.value;
+      let h = hInput.value;
+      const el = this.app.state.selectedElement;
+
+      if (el) {
+        if (
+          this.domAspectLocked &&
+          e &&
+          (e.target === wInput || e.target === hInput)
+        ) {
+          const rect = el.getBoundingClientRect();
+          const ratio = rect.width / rect.height;
+          if (e.target === wInput && w) {
+            h = Math.round(w / ratio);
+            hInput.value = h;
+          } else if (e.target === hInput && h) {
+            w = Math.round(h * ratio);
+            wInput.value = w;
+          }
+        }
+        if (w) el.style.width = `${w}px`;
+        if (h) el.style.height = `${h}px`;
+      }
+    };
+    this.$("dom-input-w").oninput = syncDomSize;
+    this.$("dom-input-h").oninput = syncDomSize;
+    this.$("dom-lock-aspect").onchange = (e) =>
+      (this.domAspectLocked = e.target.checked);
+
+    this.$("float-btn").onclick = () => {
+      const url = this.$("url-input").value;
+      if (url) this.app.overlayEngine.applyFloatingMockup(url);
+      else alert("Please provide a creative source first.");
+    };
+
+    this.$("file-btn").onclick = () => this.$("file-input").click();
+    this.$("file-input").onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) =>
+          (this.$("url-input").value = event.target.result);
+        reader.readAsDataURL(file);
+      }
+    };
+
+    this.$("paste-btn").onclick = async () => {
+      try {
+        const items = await navigator.clipboard.read();
+        for (const item of items) {
+          for (const type of item.types) {
+            if (type.startsWith("image/")) {
+              const blob = await item.getType(type);
+              const reader = new FileReader();
+              reader.onload = (event) =>
+                (this.$("url-input").value = event.target.result);
+              reader.readAsDataURL(blob);
+              return;
             }
-        };
+          }
+        }
+        alert("No image found in clipboard.");
+      } catch (err) {
+        alert("Clipboard access denied or not supported.");
+      }
+    };
 
-        this.shadowRoot.querySelectorAll('.dom-size-preset').forEach(btn => {
-            btn.onclick = () => {
-                const { w, h } = btn.dataset;
-                this.$('dom-input-w').value = w;
-                this.$('dom-input-h').value = h;
-                if (this.app.state.selectedElement) {
-                    const el = this.app.state.selectedElement;
-                    el.style.width = `${w}px`;
-                    el.style.height = `${h}px`;
-                    el.style.margin = '0 auto';
-                }
-            };
-        });
+    const updateActiveMockup = (prop, value) => {
+      if (this.app.state.activeMockup) {
+        const data = { [prop]: parseInt(value) };
+        if (this.aspectLocked && (prop === "w" || prop === "h")) {
+          const el = this.app.state.activeMockup.container;
+          const ratio = el.offsetWidth / el.offsetHeight;
+          if (prop === "w") data.h = Math.round(data.w / ratio);
+          else data.w = Math.round(data.h * ratio);
+          this.$("input-w").value = data.w;
+          this.$("input-h").value = data.h;
+        }
+        this.app.state.activeMockup.updateFromPanel(data);
+      }
+    };
 
-        const syncDomSize = (e) => {
-            const wInput = this.$('dom-input-w');
-            const hInput = this.$('dom-input-h');
-            let w = wInput.value;
-            let h = hInput.value;
-            const el = this.app.state.selectedElement;
+    ["x", "y", "w", "h"].forEach(
+      (p) =>
+        (this.$(`input-${p}`).oninput = (e) =>
+          updateActiveMockup(p, e.target.value)),
+    );
+    this.$("lock-aspect").onchange = (e) =>
+      (this.aspectLocked = e.target.checked);
 
-            if (el) {
-                if (this.domAspectLocked && e && (e.target === wInput || e.target === hInput)) {
-                    const rect = el.getBoundingClientRect();
-                    const ratio = rect.width / rect.height;
-                    if (e.target === wInput && w) {
-                        h = Math.round(w / ratio);
-                        hInput.value = h;
-                    } else if (e.target === hInput && h) {
-                        w = Math.round(h * ratio);
-                        wInput.value = w;
-                    }
-                }
-                if (w) el.style.width = `${w}px`;
-                if (h) el.style.height = `${h}px`;
-            }
-        };
-        this.$('dom-input-w').oninput = syncDomSize;
-        this.$('dom-input-h').oninput = syncDomSize;
-        this.$('dom-lock-aspect').onchange = (e) => this.domAspectLocked = e.target.checked;
+    this.shadowRoot.querySelectorAll(".size-preset").forEach((btn) => {
+      btn.onclick = () => {
+        const active = this.app.state.activeMockup;
+        if (active) {
+          const w = parseInt(btn.dataset.w),
+            h = parseInt(btn.dataset.h);
+          active.updateFromPanel({ w, h });
+          this.updateMockupStats({
+            x: parseInt(active.container.style.left),
+            y: parseInt(active.container.style.top),
+            w,
+            h,
+          });
+        }
+      };
+    });
 
-        this.$('float-btn').onclick = () => {
-            const url = this.$('url-input').value;
-            if (url) this.app.overlayEngine.applyFloatingMockup(url);
-            else alert('Please provide a creative source first.');
-        };
+    this.app.state.subscribe((state) => {
+      const info = this.$("selection-info");
+      const controls = this.$("selection-controls");
+      const inspector = this.$("inspector-section");
 
-        this.$('file-btn').onclick = () => this.$('file-input').click();
-        this.$('file-input').onchange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => this.$('url-input').value = event.target.result;
-                reader.readAsDataURL(file);
-            }
-        };
+      if (state.selectedElement) {
+        const el = state.selectedElement;
+        info.textContent = `Selected: ${el.tagName.toLowerCase()}${el.id ? "#" + el.id : ""}`;
+        controls.classList.remove("hidden");
+      } else {
+        info.textContent = "No element selected";
+        controls.classList.add("hidden");
+      }
 
-        this.$('paste-btn').onclick = async () => {
-            try {
-                const items = await navigator.clipboard.read();
-                for (const item of items) {
-                    for (const type of item.types) {
-                        if (type.startsWith('image/')) {
-                            const blob = await item.getType(type);
-                            const reader = new FileReader();
-                            reader.onload = (event) => this.$('url-input').value = event.target.result;
-                            reader.readAsDataURL(blob);
-                            return;
-                        }
-                    }
-                }
-                alert('No image found in clipboard.');
-            } catch (err) {
-                alert('Clipboard access denied or not supported.');
-            }
-        };
+      if (state.activeMockup) {
+        inspector.classList.remove("hidden");
+        state.activeMockup.reportToPanel();
+      } else {
+        inspector.classList.add("hidden");
+      }
+    });
+  }
 
-        const updateActiveMockup = (prop, value) => {
-            if (this.app.state.activeMockup) {
-                const data = { [prop]: parseInt(value) };
-                if (this.aspectLocked && (prop === 'w' || prop === 'h')) {
-                    const el = this.app.state.activeMockup.container;
-                    const ratio = el.offsetWidth / el.offsetHeight;
-                    if (prop === 'w') data.h = Math.round(data.w / ratio);
-                    else data.w = Math.round(data.h * ratio);
-                    this.$('input-w').value = data.w;
-                    this.$('input-h').value = data.h;
-                }
-                this.app.state.activeMockup.updateFromPanel(data);
-            }
-        };
+  updateSelectionButton(isSelectionMode) {
+    const btn = this.$("select-btn");
+    btn.textContent = isSelectionMode
+      ? "Cancel Selection"
+      : "Select DOM Element";
+    btn.classList.toggle("primary", isSelectionMode);
+  }
 
-        ['x', 'y', 'w', 'h'].forEach(p => this.$(`input-${p}`).oninput = (e) => updateActiveMockup(p, e.target.value));
-        this.$('lock-aspect').onchange = (e) => this.aspectLocked = e.target.checked;
+  toggleVisibility() {
+    this.isVisible = !this.isVisible;
+    this.shadowRoot
+      .querySelector(".mockup-panel")
+      .classList.toggle("hidden", !this.isVisible);
+    this.app.state.setState({ isVisible: this.isVisible });
+  }
 
-        this.shadowRoot.querySelectorAll('.size-preset').forEach(btn => {
-            btn.onclick = () => {
-                const active = this.app.state.activeMockup;
-                if (active) {
-                    const w = parseInt(btn.dataset.w), h = parseInt(btn.dataset.h);
-                    active.updateFromPanel({ w, h });
-                    this.updateMockupStats({
-                        x: parseInt(active.container.style.left),
-                        y: parseInt(active.container.style.top),
-                        w, h
-                    });
-                }
-            };
-        });
-
-        this.app.state.subscribe((state) => {
-            const info = this.$('selection-info');
-            const controls = this.$('selection-controls');
-            const inspector = this.$('inspector-section');
-            
-            if (state.selectedElement) {
-                const el = state.selectedElement;
-                info.textContent = `Selected: ${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''}`;
-                controls.classList.remove('hidden');
-            } else {
-                info.textContent = 'No element selected';
-                controls.classList.add('hidden');
-            }
-
-            if (state.activeMockup) {
-                inspector.classList.remove('hidden');
-                state.activeMockup.reportToPanel();
-            } else {
-                inspector.classList.add('hidden');
-            }
-        });
-    }
-
-    updateSelectionButton(isSelectionMode) {
-        const btn = this.$('select-btn');
-        btn.textContent = isSelectionMode ? 'Cancel Selection' : 'Select DOM Element';
-        btn.classList.toggle('primary', isSelectionMode);
-    }
-
-    toggleVisibility() {
-        this.isVisible = !this.isVisible;
-        this.shadowRoot.querySelector('.mockup-panel').classList.toggle('hidden', !this.isVisible);
-        this.app.state.setState({ isVisible: this.isVisible });
-    }
-
-    makeDraggable(el) {
-        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        const header = el.querySelector('.panel-header');
-        header.onmousedown = (e) => {
-            if (window.innerWidth <= 510) return;
-            e.preventDefault();
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = () => {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            };
-            document.onmousemove = (moveEvent) => {
-                pos1 = pos3 - moveEvent.clientX;
-                pos2 = pos4 - moveEvent.clientY;
-                pos3 = moveEvent.clientX;
-                pos4 = moveEvent.clientY;
-                el.style.top = (el.offsetTop - pos2) + "px";
-                el.style.left = (el.offsetLeft - pos1) + "px";
-                el.style.right = 'auto';
-            };
-        };
-    }
+  makeDraggable(el) {
+    let pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
+    const header = el.querySelector(".panel-header");
+    header.onmousedown = (e) => {
+      if (window.innerWidth <= 510) return;
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = () => {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      };
+      document.onmousemove = (moveEvent) => {
+        pos1 = pos3 - moveEvent.clientX;
+        pos2 = pos4 - moveEvent.clientY;
+        pos3 = moveEvent.clientX;
+        pos4 = moveEvent.clientY;
+        el.style.top = el.offsetTop - pos2 + "px";
+        el.style.left = el.offsetLeft - pos1 + "px";
+        el.style.right = "auto";
+      };
+    };
+  }
 }
