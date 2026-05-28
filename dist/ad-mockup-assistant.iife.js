@@ -1,0 +1,123 @@
+(function(){"use strict";const f=":host{all:initial;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif}.mockup-panel{position:fixed;top:20px;right:20px;width:300px;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 12px #00000026;z-index:2147483647;display:flex;flex-direction:column;overflow:hidden;-webkit-user-select:none;user-select:none}.panel-header{background:#f8f9fa;padding:10px 15px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;cursor:move}.panel-header h3{margin:0;font-size:14px;color:#333}.panel-content{padding:15px;display:flex;flex-direction:column;gap:10px}.panel-footer{padding:10px 15px;border-top:1px solid #eee;background:#f8f9fa;font-size:11px;color:#888}button{padding:8px 12px;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;font-size:13px;transition:background .2s}button:hover{background:#f0f0f0}button.primary{background:#007bff;color:#fff;border-color:#0056b3}button.primary:hover{background:#0069d9}.hidden{display:none!important}@media (max-width: 510px){.mockup-panel{top:auto!important;bottom:0!important;right:0!important;left:0!important;width:100%!important;border-radius:12px 12px 0 0;max-height:80vh;overflow-y:auto}.panel-header{padding:12px 15px}.panel-content{gap:8px;padding:12px}.mockup-panel.collapsed .panel-content,.mockup-panel.collapsed .panel-footer,.mockup-panel.collapsed hr,.mockup-panel.collapsed #inspector-section,.mockup-panel.collapsed #action-section,.mockup-panel.collapsed #source-section{display:none!important}.mockup-panel.collapsed{height:auto!important;max-height:none!important}}#collapse-btn{display:none;margin-right:8px;padding:2px 8px;font-weight:700;font-size:14px}@media (max-width: 510px){#collapse-btn{display:inline-block}}.visibility-toggle-trigger{position:fixed;top:0;right:0;width:20px;height:20px;background:transparent;z-index:2147483647;cursor:pointer}.visibility-toggle-trigger:hover{background:#0000000d}";class x{constructor(t){this.app=t,this.container=null,this.shadowRoot=null,this.isVisible=!0,this.aspectLocked=!0,this.domAspectLocked=!0}render(){this.container=document.createElement("div"),this.container.id="ad-mockup-assistant-root",this.shadowRoot=this.container.attachShadow({mode:"open"});const t=document.createElement("style");t.textContent=f,this.shadowRoot.appendChild(t);const e=document.createElement("div");e.className="mockup-panel",e.innerHTML=`
+            <div class="panel-header">
+                <div style="display: flex; align-items: center;">
+                    <button id="collapse-btn">−</button>
+                    <h3>Ad Mockup Assistant</h3>
+                </div>
+                <button id="close-btn" style="padding: 2px 6px; font-size: 10px;">X</button>
+            </div>
+            <div class="panel-content">
+                <div id="source-section">
+                    <label style="font-size: 12px; font-weight: bold;">1. Creative Source:</label>
+                    <input type="text" id="url-input" placeholder="Image URL..." style="width: 100%; padding: 5px; box-sizing: border-box; margin-top: 5px;">
+                    <div style="display: flex; gap: 5px; margin-top: 5px;">
+                        <button id="file-btn" style="flex: 1; font-size: 11px;">Upload File</button>
+                        <button id="paste-btn" style="flex: 1; font-size: 11px;">Paste Img</button>
+                        <input type="file" id="file-input" class="hidden" accept="image/*">
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
+
+                <div id="action-section">
+                    <label style="font-size: 12px; font-weight: bold;">2. Placement:</label>
+                    <button id="float-btn" class="primary" style="width: 100%; margin-top: 5px;">Create Floating Mockup</button>
+                    
+                    <div style="margin-top: 10px;">
+                        <button id="select-btn" style="width: 100%;">Select DOM Element</button>
+                        <div id="selection-info" style="font-size: 11px; color: #666; margin-top: 3px; text-align: center;">No element selected</div>
+                    </div>
+
+                    <div id="selection-controls" class="hidden" style="margin-top: 10px; padding: 10px; background: #f9f9f9; border-radius: 4px;">
+                        <label style="font-size: 11px; font-weight: bold;">Fit Mode:</label>
+                        <select id="fit-select" style="width: 100%; padding: 3px; margin-top: 3px; font-size: 11px;">
+                            <option value="contain">Contain</option>
+                            <option value="cover">Cover</option>
+                            <option value="fill">Stretch</option>
+                            <option value="none">Original</option>
+                        </select>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 8px;">
+                            <div>
+                                <label style="font-size: 9px; display: block; color: #555;">Width</label>
+                                <input type="number" id="dom-input-w" style="width: 100%; font-size: 11px; padding: 2px;">
+                            </div>
+                            <div>
+                                <label style="font-size: 9px; display: block; color: #555;">Height</label>
+                                <input type="number" id="dom-input-h" style="width: 100%; font-size: 11px; padding: 2px;">
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 8px;">
+                            <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
+                            <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                                <button class="dom-size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
+                                <button class="dom-size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
+                                <button class="dom-size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                                <button class="dom-size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            </div>
+                        </div>
+
+                        <label style="display: flex; align-items: center; gap: 5px; font-size: 10px; margin-top: 8px; cursor: pointer;">
+                            <input type="checkbox" id="dom-lock-aspect" checked> Lock Aspect Ratio
+                        </label>
+
+                        <button id="apply-btn" class="primary" style="width: 100%; margin-top: 10px; font-size: 12px;">Replace Selected</button>
+                    </div>
+                </div>
+
+                <div id="inspector-section" class="hidden" style="background: #f0f7ff; padding: 10px; border-radius: 4px; border: 1px solid #cce5ff; margin-top: 10px;">
+                    <label style="font-size: 11px; font-weight: bold; color: #004085;">3. Mockup Inspector:</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px;">
+                        <div>
+                            <label style="font-size: 9px; display: block; color: #555;">X Pos</label>
+                            <input type="number" id="input-x" style="width: 100%; font-size: 11px; padding: 2px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 9px; display: block; color: #555;">Y Pos</label>
+                            <input type="number" id="input-y" style="width: 100%; font-size: 11px; padding: 2px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 9px; display: block; color: #555;">Width</label>
+                            <input type="number" id="input-w" style="width: 100%; font-size: 11px; padding: 2px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 9px; display: block; color: #555;">Height</label>
+                            <input type="number" id="input-h" style="width: 100%; font-size: 11px; padding: 2px;">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 8px;">
+                        <label style="font-size: 9px; display: block; color: #555; margin-bottom: 3px;">Presets:</label>
+                        <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                            <button class="size-preset" data-w="300" data-h="250" style="font-size: 9px; padding: 2px 4px;">300x250</button>
+                            <button class="size-preset" data-w="728" data-h="90" style="font-size: 9px; padding: 2px 4px;">728x90</button>
+                            <button class="size-preset" data-w="320" data-h="50" style="font-size: 9px; padding: 2px 4px;">320x50</button>
+                            <button class="size-preset" data-w="300" data-h="600" style="font-size: 9px; padding: 2px 4px;">300x600</button>
+                            <button class="size-preset" data-w="970" data-h="250" style="font-size: 9px; padding: 2px 4px;">970x250</button>
+                        </div>
+                    </div>
+
+                    <label style="display: flex; align-items: center; gap: 5px; font-size: 10px; margin-top: 8px; cursor: pointer;">
+                        <input type="checkbox" id="lock-aspect" checked> Lock Aspect Ratio
+                    </label>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
+                <button id="reset-btn" style="width: 100%;">Reset All</button>
+            </div>
+            <div class="panel-footer">
+                Shortcut: Ctrl+Shift+H to toggle UI
+            </div>
+        `,this.shadowRoot.appendChild(e);const o=document.createElement("div");o.className="visibility-toggle-trigger",o.title="Click to show/hide tool",o.onclick=()=>this.toggleVisibility(),this.shadowRoot.appendChild(o),document.documentElement.appendChild(this.container),this.setupEventListeners(),this.makeDraggable(e)}$(t){return this.shadowRoot.getElementById(t)}updateMockupStats(t){const e=this.$("input-x"),o=this.$("input-y"),l=this.$("input-w"),i=this.$("input-h");e&&(e.value=t.x),o&&(o.value=t.y),l&&(l.value=t.w),i&&(i.value=t.h)}setupEventListeners(){this.$("close-btn").onclick=()=>this.toggleVisibility();const t=this.$("collapse-btn"),e=this.shadowRoot.querySelector(".mockup-panel");t.onclick=()=>{const i=e.classList.toggle("collapsed");t.textContent=i?"+":"−"},this.$("select-btn").onclick=()=>{const i=!this.app.state.isSelectionMode;this.app.state.setState({isSelectionMode:i}),this.updateSelectionButton(i)},this.$("reset-btn").onclick=()=>this.app.overlayEngine.reset(),this.$("apply-btn").onclick=()=>{const i=this.$("url-input").value,n=this.$("fit-select").value,s=this.$("dom-input-w").value,a=this.$("dom-input-h").value;if(i&&this.app.state.selectedElement){const p=this.app.state.selectedElement;s&&(p.style.width=`${s}px`),a&&(p.style.height=`${a}px`),(s||a)&&(p.style.margin="0 auto"),this.app.overlayEngine.applyCreative(p,i,{fit:n})}else i&&this.app.overlayEngine.applyFloatingMockup(i)},this.shadowRoot.querySelectorAll(".dom-size-preset").forEach(i=>{i.onclick=()=>{const{w:n,h:s}=i.dataset;if(this.$("dom-input-w").value=n,this.$("dom-input-h").value=s,this.app.state.selectedElement){const a=this.app.state.selectedElement;a.style.width=`${n}px`,a.style.height=`${s}px`,a.style.margin="0 auto"}}});const o=i=>{const n=this.$("dom-input-w"),s=this.$("dom-input-h");let a=n.value,p=s.value;const d=this.app.state.selectedElement;if(d){if(this.domAspectLocked&&i&&(i.target===n||i.target===s)){const r=d.getBoundingClientRect(),c=r.width/r.height;i.target===n&&a?(p=Math.round(a/c),s.value=p):i.target===s&&p&&(a=Math.round(p*c),n.value=a)}a&&(d.style.width=`${a}px`),p&&(d.style.height=`${p}px`)}};this.$("dom-input-w").oninput=o,this.$("dom-input-h").oninput=o,this.$("dom-lock-aspect").onchange=i=>this.domAspectLocked=i.target.checked,this.$("float-btn").onclick=()=>{const i=this.$("url-input").value;i?this.app.overlayEngine.applyFloatingMockup(i):alert("Please provide a creative source first.")},this.$("file-btn").onclick=()=>this.$("file-input").click(),this.$("file-input").onchange=i=>{const n=i.target.files[0];if(n){const s=new FileReader;s.onload=a=>this.$("url-input").value=a.target.result,s.readAsDataURL(n)}},this.$("paste-btn").onclick=async()=>{try{const i=await navigator.clipboard.read();for(const n of i)for(const s of n.types)if(s.startsWith("image/")){const a=await n.getType(s),p=new FileReader;p.onload=d=>this.$("url-input").value=d.target.result,p.readAsDataURL(a);return}alert("No image found in clipboard.")}catch{alert("Clipboard access denied or not supported.")}};const l=(i,n)=>{if(this.app.state.activeMockup){const s={[i]:parseInt(n)};if(this.aspectLocked&&(i==="w"||i==="h")){const a=this.app.state.activeMockup.container,p=a.offsetWidth/a.offsetHeight;i==="w"?s.h=Math.round(s.w/p):s.w=Math.round(s.h*p),this.$("input-w").value=s.w,this.$("input-h").value=s.h}this.app.state.activeMockup.updateFromPanel(s)}};["x","y","w","h"].forEach(i=>this.$(`input-${i}`).oninput=n=>l(i,n.target.value)),this.$("lock-aspect").onchange=i=>this.aspectLocked=i.target.checked,this.shadowRoot.querySelectorAll(".size-preset").forEach(i=>{i.onclick=()=>{const n=this.app.state.activeMockup;if(n){const s=parseInt(i.dataset.w),a=parseInt(i.dataset.h);n.updateFromPanel({w:s,h:a}),this.updateMockupStats({x:parseInt(n.container.style.left),y:parseInt(n.container.style.top),w:s,h:a})}}}),this.app.state.subscribe(i=>{const n=this.$("selection-info"),s=this.$("selection-controls"),a=this.$("inspector-section");if(i.selectedElement){const p=i.selectedElement;n.textContent=`Selected: ${p.tagName.toLowerCase()}${p.id?"#"+p.id:""}`,s.classList.remove("hidden")}else n.textContent="No element selected",s.classList.add("hidden");i.activeMockup?(a.classList.remove("hidden"),i.activeMockup.reportToPanel()):a.classList.add("hidden")})}updateSelectionButton(t){const e=this.$("select-btn");e.textContent=t?"Cancel Selection":"Select DOM Element",e.classList.toggle("primary",t)}toggleVisibility(){this.isVisible=!this.isVisible,this.shadowRoot.querySelector(".mockup-panel").classList.toggle("hidden",!this.isVisible),this.app.state.setState({isVisible:this.isVisible})}makeDraggable(t){let e=0,o=0,l=0,i=0;const n=t.querySelector(".panel-header");n.onmousedown=s=>{window.innerWidth<=510||(s.preventDefault(),l=s.clientX,i=s.clientY,document.onmouseup=()=>{document.onmouseup=null,document.onmousemove=null},document.onmousemove=a=>{e=l-a.clientX,o=i-a.clientY,l=a.clientX,i=a.clientY,t.style.top=t.offsetTop-o+"px",t.style.left=t.offsetLeft-e+"px",t.style.right="auto"})}}}class b{constructor(t){this.app=t,this.highlightBox=null,this.mask=null,this.app.state.subscribe(e=>{e.isSelectionMode?this.enable():this.disable()})}enable(){this.highlightBox||(this.highlightBox=document.createElement("div"),this.highlightBox.style.cssText="position:fixed; border:2px solid #007bff; background:rgba(0,123,255,0.1); pointer-events:none; z-index:2147483645; display:none;",document.documentElement.appendChild(this.highlightBox)),this.mask||(this.mask=document.createElement("div"),this.mask.style.cssText="position:fixed; top:0; left:0; width:100vw; height:100vh; background:transparent; z-index:2147483644; cursor:crosshair;",this.mask.addEventListener("mousemove",t=>{this.mask.style.pointerEvents="none";let e=document.elementFromPoint(t.clientX,t.clientY);if(this.mask.style.pointerEvents="auto",e&&!this.isInternalElement(e)){e=this.findAdContainer(e);const o=e.getBoundingClientRect();Object.assign(this.highlightBox.style,{top:`${o.top}px`,left:`${o.left}px`,width:`${o.width}px`,height:`${o.height}px`,display:"block"})}else this.highlightBox.style.display="none"}),this.mask.addEventListener("click",t=>{t.preventDefault(),t.stopPropagation(),this.mask.style.pointerEvents="none";let e=document.elementFromPoint(t.clientX,t.clientY);this.mask.style.pointerEvents="auto",e&&!this.isInternalElement(e)&&(e=this.findAdContainer(e),this.app.state.setState({selectedElement:e,isSelectionMode:!1}),this.app.panel.updateSelectionButton(!1))},!0)),this.mask.style.display="block",document.documentElement.appendChild(this.mask)}findAdContainer(t){let e=t,o=t;for(;e&&e.tagName!=="BODY"&&e.tagName!=="HTML";){const l=e.id||"",i=typeof e.className=="string"?e.className:"";(l.includes("google_ads_iframe")||l.includes("gpt-")||l.includes("ad-slot")||i.includes("ad-slot")||i.includes("ad-container")||i.includes("js-ad-slot"))&&(o=e),e=e.parentElement}return o.tagName==="IFRAME"&&o.parentElement?o.parentElement:o}disable(){this.mask&&(this.mask.style.display="none"),this.highlightBox&&(this.highlightBox.style.display="none")}isInternalElement(t){const e=document.getElementById("ad-mockup-assistant-root");return t===e||(e==null?void 0:e.contains(t))||t===this.highlightBox||t===this.mask}}class y{constructor(t,e){this.source=t,this.app=e,this.container=null,this.img=null}async render(){const{w:t,h:e}=await this.getImageDimensions(this.source);this.container=document.createElement("div"),this.container.dataset.adMockupWidget="true";const o=window.scrollY+window.innerHeight/2-e/2,l=window.scrollX+window.innerWidth/2-t/2;this.container.style.cssText=`
+            position: absolute;
+            top: ${o}px;
+            left: ${l}px;
+            width: ${t}px;
+            height: ${e}px;
+            border: 1px dashed #007bff;
+            z-index: 2147483640;
+            cursor: move;
+            box-sizing: border-box;
+            background: transparent;
+        `,this.img=document.createElement("img"),this.img.src=this.source,this.img.style.cssText="width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block;",this.container.appendChild(this.img);const i=document.createElement("div");i.style.cssText="position: absolute; right: 0; bottom: 0; width: 15px; height: 15px; background: #007bff; cursor: nwse-resize; z-index: 1;",this.container.appendChild(i);const n=document.createElement("div");n.innerHTML="×",n.style.cssText="position: absolute; top: -10px; right: -10px; width: 20px; height: 20px; background: #ff4d4d; color: white; border-radius: 50%; text-align: center; line-height: 18px; cursor: pointer; font-family: Arial; font-size: 14px; display: none;",n.onclick=()=>this.container.remove(),this.container.appendChild(n),this.container.onmouseenter=()=>{this.app.state.isVisible&&(n.style.display="block",this.container.style.border="1px dashed #007bff")},this.container.onmouseleave=()=>{n.style.display="none",this.app.state.isVisible||(this.container.style.border="none")},this.makeDraggable(this.container),this.makeResizable(this.container,i),document.body.appendChild(this.container),this.select(),this.app.state.subscribe(s=>{this.container.style.border=s.isVisible?"1px dashed #007bff":"none",this.container.style.boxShadow=s.isVisible&&s.activeMockup===this?"0 0 10px rgba(0,123,255,0.5)":"none",i.style.display=s.isVisible?"block":"none",s.isVisible||(n.style.display="none")})}select(){this.app.state.setState({activeMockup:this}),document.querySelectorAll("[data-ad-mockup-widget]").forEach(t=>t.style.boxShadow="none"),this.app.state.isVisible&&(this.container.style.boxShadow="0 0 10px rgba(0,123,255,0.5)")}updateFromPanel(t){t.x!==void 0&&(this.container.style.left=`${t.x}px`),t.y!==void 0&&(this.container.style.top=`${t.y}px`),t.w!==void 0&&(this.container.style.width=`${t.w}px`),t.h!==void 0&&(this.container.style.height=`${t.h}px`)}reportToPanel(){this.app.panel&&this.app.panel.updateMockupStats({x:parseInt(this.container.style.left),y:parseInt(this.container.style.top),w:this.container.offsetWidth,h:this.container.offsetHeight})}getImageDimensions(t){return new Promise(e=>{const o=new Image;o.onload=()=>e({w:o.naturalWidth,h:o.naturalHeight}),o.onerror=()=>e({w:300,h:250}),o.src=t})}getCoords(t){return t.touches&&t.touches.length>0?{x:t.touches[0].clientX,y:t.touches[0].clientY}:{x:t.clientX,y:t.clientY}}makeDraggable(t){let e=0,o=0,l=0,i=0;const n=s=>{if(s.target.tagName==="DIV"&&s.target!==t||!this.app.state.isVisible)return;this.select();const a=this.getCoords(s);l=a.x,i=a.y;const p=r=>{const c=this.getCoords(r);e=l-c.x,o=i-c.y,l=c.x,i=c.y,t.style.top=t.offsetTop-o+"px",t.style.left=t.offsetLeft-e+"px",this.reportToPanel()},d=()=>{document.removeEventListener("mousemove",p),document.removeEventListener("mouseup",d),document.removeEventListener("touchmove",p),document.removeEventListener("touchend",d)};document.addEventListener("mousemove",p),document.addEventListener("mouseup",d),document.addEventListener("touchmove",p,{passive:!1}),document.addEventListener("touchend",d)};t.addEventListener("mousedown",n),t.addEventListener("touchstart",n,{passive:!1})}makeResizable(t,e){const o=l=>{if(!this.app.state.isVisible)return;this.select(),l.preventDefault(),l.stopPropagation();let i=t.offsetWidth,n=t.offsetHeight;const s=this.getCoords(l);let a=s.x,p=s.y,d=i/n;const r=z=>{const u=this.getCoords(z);let m=i+(u.x-a),g=n+(u.y-p);this.app.panel&&this.app.panel.aspectLocked&&(g=m/d),t.style.width=m+"px",t.style.height=g+"px",this.reportToPanel()},c=()=>{document.removeEventListener("mousemove",r),document.removeEventListener("mouseup",c),document.removeEventListener("touchmove",r),document.removeEventListener("touchend",c)};document.addEventListener("mousemove",r),document.addEventListener("mouseup",c),document.addEventListener("touchmove",r,{passive:!1}),document.addEventListener("touchend",c)};e.addEventListener("mousedown",o),e.addEventListener("touchstart",o,{passive:!1})}}class v{constructor(t){this.app=t,this.activeMockups=new Map,this.observers=new Map}async applyFloatingMockup(t){await new y(t,this.app).render()}applyCreative(t,e,o={}){const{fit:l="contain"}=o;this.replaceElement(t,e,l),this.setupResilience(t,e,o)}replaceElement(t,e,o){Array.from(t.children).forEach(i=>{i.dataset.adMockup||(i.style.display="none")});let l=t.querySelector("[data-ad-mockup]");l||(l=document.createElement("img"),l.dataset.adMockup="true",t.appendChild(l)),l.src=e,l.style.cssText=`width:100%; height:100%; object-fit:${o}; display:block;`,this.activeMockups.set(t,{source:e,options:{fit:o}})}setupResilience(t,e,o){this.observers.has(t)&&this.observers.get(t).disconnect();const l=new MutationObserver(i=>{i.some(s=>s.type==="childList"&&Array.from(s.addedNodes).some(a=>a.nodeType===1&&!a.dataset.adMockup))&&this.applyCreative(t,e,o)});l.observe(t,{childList:!0}),this.observers.set(t,l)}reset(){this.activeMockups.forEach((t,e)=>{const o=e.querySelector("[data-ad-mockup]");o&&o.remove(),Array.from(e.children).forEach(l=>{l.style.display=""})}),this.observers.forEach(t=>t.disconnect()),this.observers.clear(),this.activeMockups.clear(),document.querySelectorAll("[data-ad-mockup-widget]").forEach(t=>t.remove()),this.app.state.setState({selectedElement:null,activeMockup:null})}}class w{constructor(){this.selectedElement=null,this.activeMockup=null,this.isSelectionMode=!1,this.isVisible=!0,this.creatives=[],this.listeners=[]}setState(t){Object.assign(this,t),this.notify()}subscribe(t){return this.listeners.push(t),()=>{this.listeners=this.listeners.filter(e=>e!==t)}}notify(){this.listeners.forEach(t=>t(this))}}const k={shortcuts:{toggleVisibility:["Control","Shift","H"]},dv360Rules:[{pattern:/dsp-preview-url=(.*)/,type:"iframe"}]};class E{constructor(){this.state=new w,this.config=k,this.panel=new x(this),this.selectionEngine=new b(this),this.overlayEngine=new v(this)}init(){if(window.__AD_MOCKUP_ASSISTANT_INITIALIZED__){console.warn("Ad Mockup Assistant is already initialized.");return}window.__AD_MOCKUP_ASSISTANT_INITIALIZED__=!0,this.panel.render(),this.setupKeyboardShortcuts(),console.log("Ad Mockup Assistant initialized.")}setupKeyboardShortcuts(){window.addEventListener("keydown",t=>{const{toggleVisibility:e}=this.config.shortcuts;t.key===e[2]&&t.ctrlKey===(e[0]==="Control")&&t.shiftKey===(e[1]==="Shift")&&this.panel.toggleVisibility()})}}(function(){console.log("Ad Mockup Assistant loading..."),new E().init()})()})();
